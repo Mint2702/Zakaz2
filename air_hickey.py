@@ -11,37 +11,21 @@ def input_forces() -> list:
     return wins, forces
 
 
-def check_if_won(wins: dict, diff: list, count: int) -> bool:
-    values = list(wins.values())
-    maximum1 = max(values)
-    values.remove(maximum1)
-    maximum2 = max(values)
-    if count >= 100:
-        diff.append(maximum1 - maximum2)
+def check_if_won(wins: dict, count: int, forces) -> bool:
+    if count >= n * 2:
+        print(max(forces))
+        return True
     for key, win in wins.items():
-        if win == k or check_diff(diff):
+        if win == k:
             print(key)
             return True
     return False
 
 
-def check_diff(diff: list):
-    if len(diff) > 50:
-        prev = diff[0]
-        for i in diff:
-            if i < prev:
-                return False
-            prev = i
-        return True
-    else:
-        return False
-
-
 wins, forces = input_forces()
 player1 = forces[0]
-diff = [0]
 count = 0
-while not check_if_won(wins, diff, count):
+while not check_if_won(wins, count, forces):
     count += 1
     player2 = forces[1]
     if player2 > player1:
